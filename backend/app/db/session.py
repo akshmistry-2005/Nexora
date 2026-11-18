@@ -1,3 +1,5 @@
+from collections.abc import Generator
+
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session, sessionmaker
@@ -11,6 +13,15 @@ engine: Engine = create_engine(
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, class_=Session)
+
+
+def get_db() -> Generator[Session, None, None]:
+    """FastAPI dependency providing a transactional database session with guaranteed closure."""
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 
 def check_database_connection() -> tuple[bool, str]:

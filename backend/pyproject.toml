@@ -56,4 +56,5 @@ python_files = ["test_*.py"]
 markers = [
     "m02: Module 2 environment and health checks",
     "m03: Module 3 database design and synthetic data",
+    "m04: Module 4 backend foundation and API standards",
 ]

@@ -64,7 +64,7 @@ Understand → Implement → Test → Identify Failures → Fix → Retest
 - `M3-T01` Database creation (PASS) · `M3-T02` Migration execution (PASS) · `M3-T03` ER verification (PASS) · `M3-T04` PK/FK/unique constraints (PASS) · `M3-T05` `organization_id` validation (PASS) · `M3-T06` Synthetic data generation (PASS) · `M3-T07` Data coverage validation (PASS) · `M3-T08` Referential integrity check (PASS) · `M3-T09` Data plausibility check (PASS) · `M3-T10` Deterministic seed test (PASS) · `M3-T11` Database reset test (PASS).
 
 ### Module 4 — Backend Foundation and API Standards (`M4-T01` – `M4-T11`)
-- `M4-T01` Backend startup · `M4-T02` DB connectivity · `M4-T03` DB session handling · `M4-T04` API response format · `M4-T05` Request validation · `M4-T06` Pagination · `M4-T07` Sorting · `M4-T08` Filtering · `M4-T09` Invalid filter handling · `M4-T10` OpenAPI documentation · `M4-T11` Safe error handling.
+- `M4-T01` Backend startup (PASS) · `M4-T02` DB connectivity (PASS) · `M4-T03` DB session handling (PASS) · `M4-T04` API response format (PASS) · `M4-T05` Request validation (PASS) · `M4-T06` Pagination (PASS) · `M4-T07` Sorting (PASS) · `M4-T08` Filtering (PASS) · `M4-T09` Invalid filter handling (PASS) · `M4-T10` OpenAPI documentation (PASS) · `M4-T11` Safe error handling (PASS).
 
 ### Module 5 — Authentication, Roles and Permissions (`M5-T01` – `M5-T12`)
 - `M5-T01` Owner login success · `M5-T02` Owner login failure · `M5-T03` Demo role selection · `M5-T04` Owner role protection · `M5-T05` Demo read-only protection · `M5-T06` Unauthenticated 401 · `M5-T07` Insufficient permission 403 · `M5-T08` Privilege escalation attempt · `M5-T09` Session expiration · `M5-T10` Logout revocation · `M5-T11` Password hashing security · `M5-T12` Backend authorization enforcement.
@@ -110,5 +110,6 @@ Understand → Implement → Test → Identify Failures → Fix → Retest
 | :---: | :---: | :--- | :--- |
 | 01 | PASS | `docs/test-reports/module-01.md` | `module-01-complete` tag (`215b662`) |
 | 02 | PASS | `docs/test-reports/module-02.md` | `module-02-complete` tag (`bdc7c4f`) |
-| 03 | PASS | `docs/test-reports/module-03.md` | `module-03-complete` tag |
-| 04–16 | Not Started | `docs/test-reports/module-04.md` – `module-16.md` | — |
+| 03 | PASS | `docs/test-reports/module-03.md` | `module-03-complete` tag (`2e77842`) |
+| 04 | PASS | `docs/test-reports/module-04.md` | `module-04-complete` tag |
+| 05–16 | Not Started | `docs/test-reports/module-05.md` – `module-16.md` | — |
