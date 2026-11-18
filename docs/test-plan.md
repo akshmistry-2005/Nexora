@@ -58,7 +58,7 @@ Understand → Implement → Test → Identify Failures → Fix → Retest
 | `M1-T06` | Acceptance criteria validation (measurable completion conditions per task) | Audit + Automated Check | PASS |
 
 ### Module 2 — Development Environment and Repository (`M2-T01` – `M2-T10`)
-- `M2-T01` Repository structure · `M2-T02` Frontend dependency install · `M2-T03` Backend dependency install · `M2-T04` PostgreSQL startup · `M2-T05` Backend startup · `M2-T06` Backend health check · `M2-T07` Frontend startup · `M2-T08` Frontend-backend connectivity · `M2-T09` Environment configuration (`.env.example`) · `M2-T10` Code quality tools (ruff/mypy/eslint/tsc).
+- `M2-T01` Repository structure (PASS) · `M2-T02` Frontend dependency install (PASS) · `M2-T03` Backend dependency install (PASS) · `M2-T04` PostgreSQL startup (PASS) · `M2-T05` Backend startup (PASS) · `M2-T06` Backend health check (PASS) · `M2-T07` Frontend startup (PASS) · `M2-T08` Frontend-backend connectivity (PASS) · `M2-T09` Environment configuration (PASS) · `M2-T10` Code quality tools (PASS).
 
 ### Module 3 — Database Design and Synthetic Data (`M3-T01` – `M3-T11`)
 - `M3-T01` Database creation · `M3-T02` Migration execution · `M3-T03` ER verification · `M3-T04` PK/FK/unique constraints · `M3-T05` `organization_id` validation · `M3-T06` Synthetic data generation · `M3-T07` Data coverage validation · `M3-T08` Referential integrity check · `M3-T09` Data plausibility check · `M3-T10` Deterministic seed test · `M3-T11` Database reset test.
@@ -108,5 +108,6 @@ Understand → Implement → Test → Identify Failures → Fix → Retest
 
 | Module | Gate Status | Report Path | Git Checkpoint |
 | :---: | :---: | :--- | :--- |
-| 01 | PASS | `docs/test-reports/module-01.md` | `module-01-complete` tag / commit |
-| 02–16 | Not Started | `docs/test-reports/module-02.md` – `module-16.md` | — |
+| 01 | PASS | `docs/test-reports/module-01.md` | `module-01-complete` tag (`215b662`) |
+| 02 | PASS | `docs/test-reports/module-02.md` | `module-02-complete` tag |
+| 03–16 | Not Started | `docs/test-reports/module-03.md` – `module-16.md` | — |
