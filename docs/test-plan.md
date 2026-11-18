@@ -61,7 +61,7 @@ Understand → Implement → Test → Identify Failures → Fix → Retest
 - `M2-T01` Repository structure (PASS) · `M2-T02` Frontend dependency install (PASS) · `M2-T03` Backend dependency install (PASS) · `M2-T04` PostgreSQL startup (PASS) · `M2-T05` Backend startup (PASS) · `M2-T06` Backend health check (PASS) · `M2-T07` Frontend startup (PASS) · `M2-T08` Frontend-backend connectivity (PASS) · `M2-T09` Environment configuration (PASS) · `M2-T10` Code quality tools (PASS).
 
 ### Module 3 — Database Design and Synthetic Data (`M3-T01` – `M3-T11`)
-- `M3-T01` Database creation · `M3-T02` Migration execution · `M3-T03` ER verification · `M3-T04` PK/FK/unique constraints · `M3-T05` `organization_id` validation · `M3-T06` Synthetic data generation · `M3-T07` Data coverage validation · `M3-T08` Referential integrity check · `M3-T09` Data plausibility check · `M3-T10` Deterministic seed test · `M3-T11` Database reset test.
+- `M3-T01` Database creation (PASS) · `M3-T02` Migration execution (PASS) · `M3-T03` ER verification (PASS) · `M3-T04` PK/FK/unique constraints (PASS) · `M3-T05` `organization_id` validation (PASS) · `M3-T06` Synthetic data generation (PASS) · `M3-T07` Data coverage validation (PASS) · `M3-T08` Referential integrity check (PASS) · `M3-T09` Data plausibility check (PASS) · `M3-T10` Deterministic seed test (PASS) · `M3-T11` Database reset test (PASS).
 
 ### Module 4 — Backend Foundation and API Standards (`M4-T01` – `M4-T11`)
 - `M4-T01` Backend startup · `M4-T02` DB connectivity · `M4-T03` DB session handling · `M4-T04` API response format · `M4-T05` Request validation · `M4-T06` Pagination · `M4-T07` Sorting · `M4-T08` Filtering · `M4-T09` Invalid filter handling · `M4-T10` OpenAPI documentation · `M4-T11` Safe error handling.
@@ -109,5 +109,6 @@ Understand → Implement → Test → Identify Failures → Fix → Retest
 | Module | Gate Status | Report Path | Git Checkpoint |
 | :---: | :---: | :--- | :--- |
 | 01 | PASS | `docs/test-reports/module-01.md` | `module-01-complete` tag (`215b662`) |
-| 02 | PASS | `docs/test-reports/module-02.md` | `module-02-complete` tag |
-| 03–16 | Not Started | `docs/test-reports/module-03.md` – `module-16.md` | — |
+| 02 | PASS | `docs/test-reports/module-02.md` | `module-02-complete` tag (`bdc7c4f`) |
+| 03 | PASS | `docs/test-reports/module-03.md` | `module-03-complete` tag |
+| 04–16 | Not Started | `docs/test-reports/module-04.md` – `module-16.md` | — |
