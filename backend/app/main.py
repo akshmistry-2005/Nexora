@@ -10,6 +10,7 @@ from app.api.routers.health import router as health_router
 from app.api.routers.orders import router as orders_router
 from app.api.routers.organizations import router as organizations_router
 from app.api.routers.products import router as products_router
+from app.api.routers.reports import router as reports_router
 from app.core.config import settings
 from app.core.exceptions import register_exception_handlers
 from app.core.middleware import RequestContextMiddleware
@@ -52,6 +53,7 @@ def create_app() -> FastAPI:
     app.include_router(data_sources_router, prefix=api_v1_prefix)
     app.include_router(data_quality_router, prefix=api_v1_prefix)
     app.include_router(analytics_router, prefix=api_v1_prefix)
+    app.include_router(reports_router, prefix=api_v1_prefix)
 
     return app
 

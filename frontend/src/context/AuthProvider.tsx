@@ -126,7 +126,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     (permissionCode: string): boolean => {
       if (!user) return false;
       if (user.is_owner || user.role === 'owner') return true;
-      return user.permissions.includes(permissionCode);
+      return Boolean(user.permissions?.includes(permissionCode));
     },
     [user],
   );
