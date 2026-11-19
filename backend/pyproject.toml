@@ -18,6 +18,7 @@ dependencies = [
     "python-dotenv>=1.0.1,<2.0.0",
     "python-multipart>=0.0.17,<1.0.0",
     "numpy>=2.1.0,<3.0.0",
+    "scipy>=1.14.0,<2.0.0",
     "passlib[argon2]>=1.7.4,<2.0.0",
     "argon2-cffi>=23.1.0,<26.0.0",
     "pyjwt>=2.9.0,<3.0.0",
@@ -47,7 +48,7 @@ ignore = ["B008"]
 "migrations/*" = ["E501", "W291", "W293"]
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.12"
 strict = false
 warn_unused_ignores = true
 warn_redundant_casts = true
