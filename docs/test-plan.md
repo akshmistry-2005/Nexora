@@ -121,5 +121,5 @@ Understand → Implement → Test → Identify Failures → Fix → Retest
 | 11 | PASS | `docs/test-reports/module-11.md` | `module-11-complete` tag (`bb0721b`) |
 | 12 | PASS | `docs/test-reports/module-12.md` | `module-12-complete` tag (`a9dff3d`) |
 | 13 | PASS | `docs/test-reports/module-13.md` | `module-13-complete` tag (`a2595b2`) |
-| 14 | PASS | `docs/test-reports/module-14.md` | `module-14-complete` tag |
+| 14 | PASS | `docs/test-reports/module-14.md` | `module-14-complete` tag (`86b8faa`) |
 | 15–16 | Not Started | `docs/test-reports/module-15.md` – `module-16.md` | — |
