@@ -18,30 +18,36 @@ import { DataQualityPage } from '../features/data-quality/DataQualityPage';
 import { AdminPage } from '../features/administration/AdminPage';
 import '../styles/theme.css';
 
+export function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/" element={<AppShell />}>
+        <Route index element={<OverviewPage />} />
+        <Route path="sales" element={<SalesPage />} />
+        <Route path="customers" element={<CustomersPage />} />
+        <Route path="marketing" element={<MarketingPage />} />
+        <Route path="finance" element={<FinancePage />} />
+        <Route path="inventory" element={<InventoryPage />} />
+        <Route path="operations" element={<OperationsPage />} />
+        <Route path="suppliers" element={<SuppliersPage />} />
+        <Route path="statistics" element={<StatisticsPage />} />
+        <Route path="predictions" element={<PredictionsPage />} />
+        <Route path="anomalies" element={<AnomaliesPage />} />
+        <Route path="reports" element={<ReportsPage />} />
+        <Route path="data-sources" element={<DataSourcesPage />} />
+        <Route path="data-quality" element={<DataQualityPage />} />
+        <Route path="admin" element={<AdminPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Route>
+    </Routes>
+  );
+}
+
 export function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<AppShell />}>
-            <Route index element={<OverviewPage />} />
-            <Route path="sales" element={<SalesPage />} />
-            <Route path="customers" element={<CustomersPage />} />
-            <Route path="marketing" element={<MarketingPage />} />
-            <Route path="finance" element={<FinancePage />} />
-            <Route path="inventory" element={<InventoryPage />} />
-            <Route path="operations" element={<OperationsPage />} />
-            <Route path="suppliers" element={<SuppliersPage />} />
-            <Route path="statistics" element={<StatisticsPage />} />
-            <Route path="predictions" element={<PredictionsPage />} />
-            <Route path="anomalies" element={<AnomaliesPage />} />
-            <Route path="reports" element={<ReportsPage />} />
-            <Route path="data-sources" element={<DataSourcesPage />} />
-            <Route path="data-quality" element={<DataQualityPage />} />
-            <Route path="admin" element={<AdminPage />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Route>
-        </Routes>
+        <AppRoutes />
       </BrowserRouter>
     </AuthProvider>
   );

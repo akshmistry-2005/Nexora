@@ -51,7 +51,7 @@
     "customer_type_enc": 0.0156,
     "channel_enc": 0.0
   },
-  "trained_at": "2026-11-19T12:47:21.558213+00:00",
+  "trained_at": "2026-11-19T12:59:12.578921+00:00",
   "artifact_path": "artifacts\\models\\customer_churn.joblib",
   "is_loaded": true,
   "governance_notice": "Probabilistic customer churn model. High-risk flag signals intervention priority; actual retention outcomes depend on CRM execution."

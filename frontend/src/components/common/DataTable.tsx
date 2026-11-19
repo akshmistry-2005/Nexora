@@ -62,9 +62,10 @@ export function DataTable<T extends Record<string, unknown>>({
 
   // 1. Filter
   const filteredData = useMemo(() => {
-    if (!searchQuery.trim()) return data;
+    const safeData = data ?? [];
+    if (!searchQuery.trim()) return safeData;
     const q = searchQuery.toLowerCase();
-    return data.filter((row) =>
+    return safeData.filter((row) =>
       Object.values(row).some((val) => {
         if (val === null || val === undefined) return false;
         return String(val).toLowerCase().includes(q);
