@@ -46,7 +46,7 @@
     "rolling_mean_7": 0.1381,
     "rolling_mean_14": 0.6682
   },
-  "trained_at": "2026-11-19T12:59:10.312414+00:00",
+  "trained_at": "2026-11-19T13:06:31.319336+00:00",
   "artifact_path": "artifacts\\models\\sales_forecast.joblib",
   "is_loaded": true,
   "governance_notice": "Time-series forecasts assume continuity of seasonal demand. Unpredicted macroeconomic shifts may increase forecast variance."

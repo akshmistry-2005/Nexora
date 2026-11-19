@@ -123,4 +123,4 @@ Understand → Implement → Test → Identify Failures → Fix → Retest
 | 13 | PASS | `docs/test-reports/module-13.md` | `module-13-complete` tag (`a2595b2`) |
 | 14 | PASS | `docs/test-reports/module-14.md` | `module-14-complete` tag (`86b8faa`) |
 | 15 | PASS | `docs/test-reports/module-15.md` | `module-15-complete` tag (`9cc6f02`) |
-| 16 | Not Started | `docs/test-reports/module-16.md` | — |
+| 16 | PASS | `docs/test-reports/module-16.md` | `module-16-complete` tag (pending commit) |

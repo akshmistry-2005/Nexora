@@ -45,7 +45,7 @@
     "order_frequency": 0.8392,
     "category_id": 0.0307
   },
-  "trained_at": "2026-11-19T12:59:10.693052+00:00",
+  "trained_at": "2026-11-19T13:06:31.671502+00:00",
   "artifact_path": "artifacts\\models\\product_demand.joblib",
   "is_loaded": true,
   "governance_notice": "Product demand forecasts support replenishment thresholds; lead-time variance must be factored into purchase orders."
