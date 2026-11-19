@@ -29,6 +29,9 @@ class Settings(BaseSettings):
     access_token_expire_minutes: int = 120
     owner_email: str = "owner@nexora.local"
 
+    max_upload_size_mb: int = 10
+    max_export_rows: int = 50000
+
     @property
     def cors_origin_list(self) -> list[str]:
         return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
