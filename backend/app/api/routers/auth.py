@@ -5,6 +5,7 @@ from app.db.session import get_db
 from app.permissions.dependencies import AuthenticatedUser, get_current_user
 from app.schemas.auth import AuthMeResponse, DemoLoginRequest, OwnerLoginRequest, TokenResponse
 from app.schemas.common import StandardResponse
+from app.services import admin as admin_service
 from app.services.auth import auth_service
 
 router = APIRouter(prefix="/auth", tags=["Authentication & Access"])
@@ -24,11 +25,31 @@ def login_owner(
     response: Response,
     session: Session = Depends(get_db),
 ) -> StandardResponse[TokenResponse]:
-    token_resp = auth_service.authenticate_owner(
-        session=session,
-        email=request.email,
-        password=request.password,
-    )
+    try:
+        token_resp = auth_service.authenticate_owner(
+            session=session,
+            email=request.email,
+            password=request.password,
+        )
+        admin_service.log_audit_event(
+            db=session,
+            action_type="AUTH_LOGIN_SUCCESS",
+            actor_role="owner",
+            actor_user_id=token_resp.user_id,
+            entity_type="user",
+            entity_id=str(token_resp.user_id),
+            details={"email": request.email},
+        )
+    except Exception as e:
+        admin_service.log_audit_event(
+            db=session,
+            action_type="AUTH_LOGIN_FAILURE",
+            actor_role="unauthenticated",
+            entity_type="user",
+            details={"email": request.email, "reason": str(e)},
+        )
+        raise
+
     # Set HTTP-only session cookie for web browser clients
     response.set_cookie(
         key="nexora_session",
@@ -57,6 +78,15 @@ def login_demo(
     token_resp = auth_service.authenticate_demo_role(
         session=session,
         role_slug=request.role,
+    )
+    admin_service.log_audit_event(
+        db=session,
+        action_type="AUTH_LOGIN_SUCCESS",
+        actor_role=request.role,
+        actor_user_id=token_resp.user_id,
+        entity_type="user",
+        entity_id=str(token_resp.user_id),
+        details={"email": token_resp.email, "role": request.role},
     )
     response.set_cookie(
         key="nexora_session",

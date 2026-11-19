@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.routers.admin import router as admin_router
 from app.api.routers.analytics import router as analytics_router
 from app.api.routers.anomalies import router as anomalies_router
 from app.api.routers.auth import router as auth_router
@@ -10,6 +11,7 @@ from app.api.routers.data_sources import router as data_sources_router
 from app.api.routers.health import router as health_router
 from app.api.routers.orders import router as orders_router
 from app.api.routers.organizations import router as organizations_router
+from app.api.routers.pipelines import router as pipelines_router
 from app.api.routers.predictions import router as predictions_router
 from app.api.routers.products import router as products_router
 from app.api.routers.reports import router as reports_router
@@ -60,6 +62,8 @@ def create_app() -> FastAPI:
     app.include_router(statistics_router, prefix=api_v1_prefix)
     app.include_router(predictions_router, prefix=api_v1_prefix)
     app.include_router(anomalies_router, prefix=api_v1_prefix)
+    app.include_router(pipelines_router, prefix=api_v1_prefix)
+    app.include_router(admin_router, prefix=api_v1_prefix)
 
     return app
 

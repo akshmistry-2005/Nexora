@@ -12,7 +12,7 @@ from app.core.config import settings
 from app.core.exceptions import AppException
 from app.models.auth import User
 from app.models.customer import Customer
-from app.models.data_ops import DataSource, ImportJob, PipelineRun, StagingRecord
+from app.models.data_ops import AuditLog, DataSource, ImportJob, PipelineRun, StagingRecord
 from app.models.organization import Organization
 from app.schemas.data_ops import ImportResultResponse, PreviewResponse
 
@@ -416,6 +416,23 @@ class IngestionService:
 
             pipeline_run.status = "success"
             pipeline_run.ended_at = datetime.now(UTC)
+
+            # Audit log for data import (M14-T07)
+            audit = AuditLog(
+                organization_id=org.id,
+                actor_user_id=user.id,
+                actor_role=getattr(user, "role", "owner"),
+                action_type="DATA_IMPORT",
+                entity_type="import_jobs",
+                entity_id=str(import_job.id),
+                details={
+                    "target_entity": target_entity,
+                    "filename": filename,
+                    "loaded_rows": loaded_count,
+                    "rejected_rows": rejected_count,
+                },
+            )
+            session.add(audit)
 
             session.commit()
 
