@@ -32,6 +32,9 @@ data/processed/*
 !data/processed/.gitkeep
 artifacts/model_metadata/*.joblib
 artifacts/model_metadata/*.pkl
+artifacts/models/*.joblib
+artifacts/models/*.pkl
+!artifacts/models/.gitkeep
 
 # IDE & OS
 .vscode/

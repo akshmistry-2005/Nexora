@@ -9,6 +9,7 @@ from app.api.routers.data_sources import router as data_sources_router
 from app.api.routers.health import router as health_router
 from app.api.routers.orders import router as orders_router
 from app.api.routers.organizations import router as organizations_router
+from app.api.routers.predictions import router as predictions_router
 from app.api.routers.products import router as products_router
 from app.api.routers.reports import router as reports_router
 from app.api.routers.statistics import router as statistics_router
@@ -56,6 +57,7 @@ def create_app() -> FastAPI:
     app.include_router(analytics_router, prefix=api_v1_prefix)
     app.include_router(reports_router, prefix=api_v1_prefix)
     app.include_router(statistics_router, prefix=api_v1_prefix)
+    app.include_router(predictions_router, prefix=api_v1_prefix)
 
     return app
 

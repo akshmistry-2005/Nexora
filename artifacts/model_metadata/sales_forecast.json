@@ -1,0 +1,53 @@
+{
+  "model_id": "sales_forecast",
+  "model_name": "Sales Revenue Forecasting",
+  "problem_type": "regression_time_series",
+  "target_variable": "daily_revenue",
+  "features": [
+    "day_of_week",
+    "day_of_month",
+    "month",
+    "lag_1",
+    "lag_7",
+    "rolling_mean_7",
+    "rolling_mean_14"
+  ],
+  "baseline_algorithm": "DummyRegressor (Historical Mean)",
+  "candidate_algorithm": "RandomForestRegressor",
+  "hyperparameters": {
+    "n_estimators": 100,
+    "max_depth": 6,
+    "min_samples_leaf": 2,
+    "random_state": 42
+  },
+  "sample_size_train": 765,
+  "sample_size_test": 192,
+  "split_strategy": "Chronological temporal 80/20 split (strictly forward-facing, zero leakage)",
+  "baseline_metrics": {
+    "mae": 148378.87,
+    "rmse": 168003.73
+  },
+  "candidate_metrics": {
+    "mae": 82439.92,
+    "rmse": 109377.71,
+    "mape": 35.85
+  },
+  "train_metrics": {
+    "mae": 15814.52,
+    "rmse": 21348.29
+  },
+  "overfitting_gap": 66625.41,
+  "feature_importances": {
+    "day_of_week": 0.0225,
+    "day_of_month": 0.0432,
+    "month": 0.0327,
+    "lag_1": 0.0364,
+    "lag_7": 0.0589,
+    "rolling_mean_7": 0.1381,
+    "rolling_mean_14": 0.6682
+  },
+  "trained_at": "2026-11-19T11:57:50.382899+00:00",
+  "artifact_path": "artifacts\\models\\sales_forecast.joblib",
+  "is_loaded": true,
+  "governance_notice": "Time-series forecasts assume continuity of seasonal demand. Unpredicted macroeconomic shifts may increase forecast variance."
+}

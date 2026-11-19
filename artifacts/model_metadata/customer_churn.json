@@ -1,0 +1,58 @@
+{
+  "model_id": "customer_churn",
+  "model_name": "Customer Churn Prediction",
+  "problem_type": "binary_classification",
+  "target_variable": "is_churned (recency > 90d)",
+  "features": [
+    "tenure_days",
+    "order_count",
+    "total_spend",
+    "avg_order_value",
+    "returns_count",
+    "customer_type_enc",
+    "channel_enc"
+  ],
+  "baseline_algorithm": "LogisticRegression",
+  "candidate_algorithm": "RandomForestClassifier",
+  "hyperparameters": {
+    "n_estimators": 100,
+    "max_depth": 6,
+    "min_samples_leaf": 3,
+    "random_state": 42
+  },
+  "sample_size_train": 2000,
+  "sample_size_test": 500,
+  "split_strategy": "Stratified 80/20 split with fitted-on-train scaling (no leakage)",
+  "baseline_metrics": {
+    "accuracy": 0.7,
+    "precision": 0.5,
+    "recall": 0.4267,
+    "f1": 0.4604,
+    "roc_auc": 0.7596
+  },
+  "candidate_metrics": {
+    "accuracy": 0.698,
+    "precision": 0.495,
+    "recall": 0.3333,
+    "f1": 0.3984,
+    "roc_auc": 0.7558
+  },
+  "train_metrics": {
+    "accuracy": 0.801,
+    "roc_auc": 0.8704
+  },
+  "overfitting_gap": 0.1146,
+  "feature_importances": {
+    "tenure_days": 0.6568,
+    "order_count": 0.1049,
+    "total_spend": 0.1035,
+    "avg_order_value": 0.1063,
+    "returns_count": 0.0128,
+    "customer_type_enc": 0.0156,
+    "channel_enc": 0.0
+  },
+  "trained_at": "2026-11-19T11:57:51.881892+00:00",
+  "artifact_path": "artifacts\\models\\customer_churn.joblib",
+  "is_loaded": true,
+  "governance_notice": "Probabilistic customer churn model. High-risk flag signals intervention priority; actual retention outcomes depend on CRM execution."
+}

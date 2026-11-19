@@ -1,0 +1,52 @@
+{
+  "model_id": "product_demand",
+  "model_name": "Product SKU Demand Forecasting",
+  "problem_type": "regression_demand",
+  "target_variable": "total_units_sold",
+  "features": [
+    "unit_price",
+    "unit_cost",
+    "margin",
+    "reorder_point",
+    "target_stock",
+    "order_frequency",
+    "category_id"
+  ],
+  "baseline_algorithm": "DummyRegressor (Mean)",
+  "candidate_algorithm": "RandomForestRegressor",
+  "hyperparameters": {
+    "n_estimators": 80,
+    "max_depth": 5,
+    "min_samples_leaf": 2,
+    "random_state": 42
+  },
+  "sample_size_train": 96,
+  "sample_size_test": 24,
+  "split_strategy": "Random 80/20 train/test split with fitted-on-train scaling",
+  "baseline_metrics": {
+    "mae": 22.77,
+    "rmse": 29.31
+  },
+  "candidate_metrics": {
+    "mae": 13.71,
+    "rmse": 17.16
+  },
+  "train_metrics": {
+    "mae": 7.2,
+    "rmse": 9.13
+  },
+  "overfitting_gap": 6.51,
+  "feature_importances": {
+    "unit_price": 0.0214,
+    "unit_cost": 0.0263,
+    "margin": 0.0269,
+    "reorder_point": 0.0192,
+    "target_stock": 0.0364,
+    "order_frequency": 0.8392,
+    "category_id": 0.0307
+  },
+  "trained_at": "2026-11-19T11:57:50.615781+00:00",
+  "artifact_path": "artifacts\\models\\product_demand.joblib",
+  "is_loaded": true,
+  "governance_notice": "Product demand forecasts support replenishment thresholds; lead-time variance must be factored into purchase orders."
+}
