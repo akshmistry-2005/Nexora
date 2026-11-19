@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 
 from app.core.exceptions import NotFoundError
 from app.db.session import get_db
+from app.permissions.dependencies import AuthenticatedUser, require_permission
 from app.repositories.organization import organization_repo
 from app.schemas.common import StandardResponse
 from app.schemas.organization import DepartmentRead, EmployeeRead, OrganizationRead, RegionRead
@@ -17,6 +18,7 @@ router = APIRouter(tags=["Organizations & Reference Data"])
 )
 def get_current_organization(
     session: Session = Depends(get_db),
+    _: AuthenticatedUser = Depends(require_permission("dashboard.view")),
 ) -> StandardResponse[OrganizationRead]:
     org = organization_repo.get_first_org(session)
     if not org:
@@ -29,7 +31,10 @@ def get_current_organization(
     response_model=StandardResponse[list[DepartmentRead]],
     summary="List organization departments",
 )
-def list_departments(session: Session = Depends(get_db)) -> StandardResponse[list[DepartmentRead]]:
+def list_departments(
+    session: Session = Depends(get_db),
+    _: AuthenticatedUser = Depends(require_permission("dashboard.view")),
+) -> StandardResponse[list[DepartmentRead]]:
     org = organization_repo.get_first_org(session)
     if not org:
         raise NotFoundError("Organization not found.")
@@ -42,7 +47,10 @@ def list_departments(session: Session = Depends(get_db)) -> StandardResponse[lis
     response_model=StandardResponse[list[RegionRead]],
     summary="List organization geographic regions",
 )
-def list_regions(session: Session = Depends(get_db)) -> StandardResponse[list[RegionRead]]:
+def list_regions(
+    session: Session = Depends(get_db),
+    _: AuthenticatedUser = Depends(require_permission("dashboard.view")),
+) -> StandardResponse[list[RegionRead]]:
     org = organization_repo.get_first_org(session)
     if not org:
         raise NotFoundError("Organization not found.")
@@ -55,7 +63,10 @@ def list_regions(session: Session = Depends(get_db)) -> StandardResponse[list[Re
     response_model=StandardResponse[list[EmployeeRead]],
     summary="List organization internal personnel",
 )
-def list_employees(session: Session = Depends(get_db)) -> StandardResponse[list[EmployeeRead]]:
+def list_employees(
+    session: Session = Depends(get_db),
+    _: AuthenticatedUser = Depends(require_permission("dashboard.view")),
+) -> StandardResponse[list[EmployeeRead]]:
     org = organization_repo.get_first_org(session)
     if not org:
         raise NotFoundError("Organization not found.")

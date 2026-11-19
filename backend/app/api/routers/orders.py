@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 
 from app.core.exceptions import NotFoundError
 from app.db.session import get_db
+from app.permissions.dependencies import AuthenticatedUser, require_permission
 from app.repositories.order import order_repo
 from app.repositories.organization import organization_repo
 from app.schemas.common import PaginatedResponse, PaginationParams, StandardResponse
@@ -20,6 +21,7 @@ def list_orders(
     pagination: PaginationParams = Depends(),
     filters: OrderFilterParams = Depends(),
     session: Session = Depends(get_db),
+    _: AuthenticatedUser = Depends(require_permission("sales.view")),
 ) -> PaginatedResponse[OrderRead]:
     org = organization_repo.get_first_org(session)
     if not org:
@@ -46,6 +48,7 @@ def list_orders(
 def get_order(
     order_id: int,
     session: Session = Depends(get_db),
+    _: AuthenticatedUser = Depends(require_permission("sales.view")),
 ) -> StandardResponse[OrderDetailRead]:
     order = order_repo.get_order_with_items(session, order_id)
     if not order:

@@ -17,6 +17,10 @@ dependencies = [
     "alembic>=1.14.0,<2.0.0",
     "python-dotenv>=1.0.1,<2.0.0",
     "python-multipart>=0.0.17,<1.0.0",
+    "numpy>=2.1.0,<3.0.0",
+    "passlib[argon2]>=1.7.4,<2.0.0",
+    "argon2-cffi>=23.1.0,<26.0.0",
+    "pyjwt>=2.9.0,<3.0.0",
 ]
 
 [project.optional-dependencies]
@@ -57,4 +61,16 @@ markers = [
     "m02: Module 2 environment and health checks",
     "m03: Module 3 database design and synthetic data",
     "m04: Module 4 backend foundation and API standards",
+    "m05: Module 5 authentication, roles and permissions",
+    "m06: Module 6 frontend foundation and design system",
+    "m07: Module 7 data ingestion and source management",
+    "m08: Module 8 data cleaning and quality",
+    "m09: Module 9 core business intelligence modules",
+    "m10: Module 10 reports and exports",
+    "m11: Module 11 statistical analysis",
+    "m12: Module 12 predictive analytics",
+    "m13: Module 13 anomaly detection",
+    "m14: Module 14 pipeline monitoring and administration",
+    "m15: Module 15 integration and security QA",
+    "m16: Module 16 documentation and handover",
 ]

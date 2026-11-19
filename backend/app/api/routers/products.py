@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 
 from app.core.exceptions import NotFoundError
 from app.db.session import get_db
+from app.permissions.dependencies import AuthenticatedUser, require_permission
 from app.repositories.organization import organization_repo
 from app.repositories.product import product_repo
 from app.schemas.common import PaginatedResponse, PaginationParams, StandardResponse
@@ -16,7 +17,10 @@ router = APIRouter(tags=["Products & Catalog"])
     response_model=StandardResponse[list[CategoryRead]],
     summary="List product catalog categories",
 )
-def list_categories(session: Session = Depends(get_db)) -> StandardResponse[list[CategoryRead]]:
+def list_categories(
+    session: Session = Depends(get_db),
+    _: AuthenticatedUser = Depends(require_permission("sales.view")),
+) -> StandardResponse[list[CategoryRead]]:
     org = organization_repo.get_first_org(session)
     if not org:
         raise NotFoundError("Organization not found.")
@@ -33,6 +37,7 @@ def list_products(
     pagination: PaginationParams = Depends(),
     filters: ProductFilterParams = Depends(),
     session: Session = Depends(get_db),
+    _: AuthenticatedUser = Depends(require_permission("sales.view")),
 ) -> PaginatedResponse[ProductRead]:
     org = organization_repo.get_first_org(session)
     if not org:
@@ -59,6 +64,7 @@ def list_products(
 def get_product(
     product_id: int,
     session: Session = Depends(get_db),
+    _: AuthenticatedUser = Depends(require_permission("sales.view")),
 ) -> StandardResponse[ProductRead]:
     p = product_repo.get_by_id(session, product_id)
     if not p:

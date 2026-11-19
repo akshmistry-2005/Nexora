@@ -24,6 +24,11 @@ class Settings(BaseSettings):
 
     cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
 
+    jwt_secret_key: str = "nexora_local_dev_jwt_secret_key_change_in_production_min_32_chars"
+    jwt_algorithm: str = "HS256"
+    access_token_expire_minutes: int = 120
+    owner_email: str = "owner@nexora.local"
+
     @property
     def cors_origin_list(self) -> list[str]:
         return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
