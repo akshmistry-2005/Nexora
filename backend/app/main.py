@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routers.analytics import router as analytics_router
+from app.api.routers.anomalies import router as anomalies_router
 from app.api.routers.auth import router as auth_router
 from app.api.routers.customers import router as customers_router
 from app.api.routers.data_quality import router as data_quality_router
@@ -58,6 +59,7 @@ def create_app() -> FastAPI:
     app.include_router(reports_router, prefix=api_v1_prefix)
     app.include_router(statistics_router, prefix=api_v1_prefix)
     app.include_router(predictions_router, prefix=api_v1_prefix)
+    app.include_router(anomalies_router, prefix=api_v1_prefix)
 
     return app
 

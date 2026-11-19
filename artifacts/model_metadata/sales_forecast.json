@@ -22,7 +22,7 @@
   },
   "sample_size_train": 765,
   "sample_size_test": 192,
-  "split_strategy": "Chronological temporal 80/20 split (strictly forward-facing, zero leakage)",
+  "split_strategy": "Chronological temporal 80/20 split (forward-facing, zero leakage)",
   "baseline_metrics": {
     "mae": 148378.87,
     "rmse": 168003.73
@@ -46,7 +46,7 @@
     "rolling_mean_7": 0.1381,
     "rolling_mean_14": 0.6682
   },
-  "trained_at": "2026-11-19T11:57:50.382899+00:00",
+  "trained_at": "2026-11-19T12:27:53.108386+00:00",
   "artifact_path": "artifacts\\models\\sales_forecast.joblib",
   "is_loaded": true,
   "governance_notice": "Time-series forecasts assume continuity of seasonal demand. Unpredicted macroeconomic shifts may increase forecast variance."

@@ -120,4 +120,5 @@ Understand → Implement → Test → Identify Failures → Fix → Retest
 | 10 | PASS | `docs/test-reports/module-10.md` | `module-10-complete` tag (`1e7b431`) |
 | 11 | PASS | `docs/test-reports/module-11.md` | `module-11-complete` tag (`bb0721b`) |
 | 12 | PASS | `docs/test-reports/module-12.md` | `module-12-complete` tag (`a9dff3d`) |
-| 13–16 | Not Started | `docs/test-reports/module-13.md` – `module-16.md` | — |
+| 13 | PASS | `docs/test-reports/module-13.md` | `module-13-complete` tag |
+| 14–16 | Not Started | `docs/test-reports/module-14.md` – `module-16.md` | — |
