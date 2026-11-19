@@ -38,7 +38,7 @@ export interface DataTableProps<T> {
 }
 
 export function DataTable<T extends Record<string, unknown>>({
-  data,
+  data = [],
   columns,
   keyExtractor,
   loading = false,

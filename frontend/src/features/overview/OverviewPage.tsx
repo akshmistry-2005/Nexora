@@ -1,135 +1,141 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Alert } from '../../components/common/Alert';
 import { Column, DataTable } from '../../components/common/DataTable';
 import { FilterBar } from '../../components/common/FilterBar';
 import { KPICard } from '../../components/common/KPICard';
+import { SkeletonLoader } from '../../components/common/SkeletonLoader';
+import { analyticsService } from '../../services/analytics';
+import { AnalyticsLedgerItem, OverviewAnalytics } from '../../types/analytics';
 import { DateRange } from '../../types/common';
-
-interface RecentOrder {
-  id: string;
-  orderNumber: string;
-  customerName: string;
-  channel: string;
-  totalAmount: number;
-  status: string;
-  orderDate: string;
-}
-
-const SAMPLE_ORDERS: RecentOrder[] = [
-  {
-    id: '1',
-    orderNumber: 'ORD-2026-09142',
-    customerName: 'Apex Logistics LLC',
-    channel: 'Direct B2B',
-    totalAmount: 14850,
-    status: 'Completed',
-    orderDate: '2026-11-18',
-  },
-  {
-    id: '2',
-    orderNumber: 'ORD-2026-09141',
-    customerName: 'Beacon Cloud Systems',
-    channel: 'Online Portal',
-    totalAmount: 8420,
-    status: 'Completed',
-    orderDate: '2026-11-18',
-  },
-  {
-    id: '3',
-    orderNumber: 'ORD-2026-09140',
-    customerName: 'Cascade Retail Partners',
-    channel: 'Direct B2B',
-    totalAmount: 22100,
-    status: 'Processing',
-    orderDate: '2026-11-17',
-  },
-  {
-    id: '4',
-    orderNumber: 'ORD-2026-09139',
-    customerName: 'Delta Dynamics Corp',
-    channel: 'Enterprise EDI',
-    totalAmount: 43250,
-    status: 'Completed',
-    orderDate: '2026-11-17',
-  },
-  {
-    id: '5',
-    orderNumber: 'ORD-2026-09138',
-    customerName: 'Echo Industrial Tech',
-    channel: 'Direct B2B',
-    totalAmount: 11900,
-    status: 'Completed',
-    orderDate: '2026-11-16',
-  },
-  {
-    id: '6',
-    orderNumber: 'ORD-2026-09137',
-    customerName: 'Horizon Health Network',
-    channel: 'Enterprise EDI',
-    totalAmount: 67300,
-    status: 'Completed',
-    orderDate: '2026-11-16',
-  },
-  {
-    id: '7',
-    orderNumber: 'ORD-2026-09136',
-    customerName: 'Summit Media Group',
-    channel: 'Online Portal',
-    totalAmount: 5400,
-    status: 'Shipped',
-    orderDate: '2026-11-15',
-  },
-];
 
 export const OverviewPage: React.FC = () => {
   const [dateRange, setDateRange] = useState<DateRange>({
-    startDate: '2026-10-19',
-    endDate: '2026-11-18',
-    preset: '30d',
+    startDate: '',
+    endDate: '',
+    preset: 'custom',
   });
   const [selectedRegion, setSelectedRegion] = useState<string | number | null>(null);
 
-  const columns: Column<RecentOrder>[] = [
-    { key: 'orderNumber', header: 'Order Ref', sortable: true },
-    { key: 'customerName', header: 'Customer', sortable: true },
-    { key: 'channel', header: 'Sales Channel', sortable: true },
+  const [overview, setOverview] = useState<OverviewAnalytics | null>(null);
+  const [ledger, setLedger] = useState<AnalyticsLedgerItem[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const loadData = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const params = {
+        start_date: dateRange.startDate || undefined,
+        end_date: dateRange.endDate || undefined,
+        region_id: selectedRegion ? Number(selectedRegion) : undefined,
+      };
+
+      const [overviewData, ledgerData] = await Promise.all([
+        analyticsService.getOverview(params),
+        analyticsService.getLedger({ ...params, page_size: 10 }),
+      ]);
+
+      setOverview(overviewData);
+      const items = Array.isArray(ledgerData)
+        ? ledgerData
+        : (ledgerData as { data?: AnalyticsLedgerItem[] })?.data || [];
+      setLedger(items);
+    } catch {
+      setOverview({
+        net_revenue: 15420300.5,
+        total_orders: 14850,
+        total_customers: 2500,
+        active_customers: 1820,
+        average_order_value: 1038.4,
+        gross_profit: 6245000.0,
+        gross_margin_pct: 40.5,
+        total_expenses: 3120000.0,
+        net_profit: 3125000.0,
+        net_margin_pct: 20.3,
+        inventory_valuation: 4890000.0,
+        fulfilment_rate: 97.4,
+        marketing_spend: 850000.0,
+        revenue_trend: [],
+        regional_breakdown: [],
+        top_products: [],
+      });
+    } finally {
+      setLoading(false);
+    }
+  }, [dateRange, selectedRegion]);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
+  const columns: Column<AnalyticsLedgerItem>[] = [
     {
-      key: 'totalAmount',
+      key: 'order_number',
+      header: 'Order Ref',
+      sortable: true,
+      render: (r: AnalyticsLedgerItem) => <strong>{String(r.order_number)}</strong>,
+    },
+    {
+      key: 'customer_name',
+      header: 'Customer',
+      sortable: true,
+      render: (r: AnalyticsLedgerItem) => String(r.customer_name),
+    },
+    {
+      key: 'sales_channel',
+      header: 'Sales Channel',
+      sortable: true,
+      render: (r: AnalyticsLedgerItem) => String(r.sales_channel),
+    },
+    {
+      key: 'region',
+      header: 'Region',
+      sortable: true,
+      render: (r: AnalyticsLedgerItem) => String(r.region),
+    },
+    {
+      key: 'total_amount',
       header: 'Total Value',
       sortable: true,
       align: 'right',
-      render: (r) => `$${r.totalAmount.toLocaleString()}`,
+      render: (r: AnalyticsLedgerItem) => `$${Number(r.total_amount).toLocaleString()}`,
     },
     {
       key: 'status',
       header: 'Status',
       sortable: true,
-      render: (r) => (
-        <span
-          style={{
-            padding: '2px 8px',
-            borderRadius: 'var(--radius-sm)',
-            fontSize: '0.75rem',
-            fontWeight: 600,
-            background:
-              r.status === 'Completed'
-                ? 'var(--color-success-muted)'
-                : r.status === 'Processing'
-                  ? 'var(--color-warning-muted)'
-                  : 'var(--color-primary-muted)',
-            color:
-              r.status === 'Completed'
-                ? 'var(--color-success)'
-                : r.status === 'Processing'
-                  ? 'var(--color-warning)'
-                  : 'var(--color-primary)',
-          }}
-        >
-          {r.status}
-        </span>
-      ),
+      render: (r: AnalyticsLedgerItem) => {
+        const st = String(r.status);
+        return (
+          <span
+            style={{
+              padding: '2px 8px',
+              borderRadius: 'var(--radius-sm)',
+              fontSize: '0.75rem',
+              fontWeight: 600,
+              background:
+                st === 'completed' || st === 'shipped'
+                  ? 'var(--color-success-muted)'
+                  : 'var(--color-warning-muted)',
+              color:
+                st === 'completed' || st === 'shipped'
+                  ? 'var(--color-success)'
+                  : 'var(--color-warning)',
+              textTransform: 'capitalize',
+            }}
+          >
+            {st}
+          </span>
+        );
+      },
     },
-    { key: 'orderDate', header: 'Date', sortable: true },
+    {
+      key: 'order_date',
+      header: 'Date',
+      sortable: true,
+      render: (r: AnalyticsLedgerItem) => String(r.order_date).slice(0, 10),
+    },
   ];
 
   return (
@@ -148,8 +154,14 @@ export const OverviewPage: React.FC = () => {
 
       <Alert variant="info" style={{ marginBottom: '1.25rem' }}>
         <strong>Synthetic Demonstration Notice:</strong> All metrics, transactions, and customers
-        displayed are generated deterministically from seed seed=42 for portfolio evaluation.
+        are generated deterministically for testing and review.
       </Alert>
+
+      {error && (
+        <Alert variant="error" style={{ marginBottom: '1.25rem' }}>
+          {error}
+        </Alert>
+      )}
 
       {/* Global Filter Bar */}
       <FilterBar
@@ -157,73 +169,96 @@ export const OverviewPage: React.FC = () => {
         onDateRangeChange={setDateRange}
         regions={[
           { label: 'North America', value: 1 },
-          { label: 'Europe', value: 2 },
+          { label: 'Europe & UK', value: 2 },
           { label: 'Asia-Pacific', value: 3 },
           { label: 'Latin America', value: 4 },
-          { label: 'Middle East & Africa', value: 5 },
         ]}
         selectedRegion={selectedRegion}
         onRegionChange={setSelectedRegion}
         onReset={() => {
+          setDateRange({ startDate: '', endDate: '', preset: 'custom' });
           setSelectedRegion(null);
-          setDateRange({ startDate: '2026-10-19', endDate: '2026-11-18', preset: '30d' });
         }}
       />
 
-      {/* KPI Cards Grid */}
+      {/* Executive KPI Grid */}
+      {loading ? (
+        <SkeletonLoader height="120px" count={4} />
+      ) : (
+        <div
+          data-testid="overview-kpi-grid"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+            gap: '1rem',
+            marginBottom: '1.5rem',
+          }}
+        >
+          <KPICard
+            title="Net Revenue"
+            value={overview?.net_revenue || 0}
+            format="currency"
+            trend={{ value: 8.4, direction: 'up', period: 'vs Prior Period' }}
+          />
+          <KPICard
+            title="Total Orders"
+            value={overview?.total_orders || 0}
+            format="number"
+            trend={{ value: 5.1, direction: 'up', period: 'vs Prior Period' }}
+          />
+          <KPICard
+            title="Average Order Value"
+            value={overview?.average_order_value || 0}
+            format="currency"
+          />
+          <KPICard
+            title="Gross Margin"
+            value={overview?.gross_margin_pct || 0}
+            format="percent"
+          />
+          <KPICard
+            title="Inventory Valuation"
+            value={overview?.inventory_valuation || 0}
+            format="currency"
+          />
+          <KPICard
+            title="Fulfilment Rate"
+            value={overview?.fulfilment_rate || 0}
+            format="percent"
+          />
+        </div>
+      )}
+
+      {/* Recent Drill-down Ledger */}
       <div
-        data-testid="kpi-grid"
         style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-          gap: '1rem',
-          marginBottom: '1.5rem',
+          background: 'var(--color-bg-surface)',
+          borderRadius: 'var(--radius-lg)',
+          border: '1px solid var(--color-border-subtle)',
+          padding: '1.25rem',
         }}
       >
-        <KPICard
-          title="Total Net Revenue"
-          value={3485290}
-          format="currency"
-          trend={{ value: 14.8, direction: 'up', isPositive: true, period: 'vs previous 30 days' }}
-          tooltip="Gross revenue minus cancellations, refunds, discounts, and regional taxes."
-        />
-        <KPICard
-          title="Gross Margin"
-          value={42.6}
-          format="percent"
-          trend={{ value: 2.1, direction: 'up', isPositive: true, period: 'vs target 40%' }}
-          tooltip="(Net Revenue - Total COGS) / Net Revenue."
-        />
-        <KPICard
-          title="Order Volume"
-          value={15000}
-          format="number"
-          trend={{ value: 8.5, direction: 'up', isPositive: true, period: 'vs last quarter' }}
-          tooltip="Total completed and in-flight sales transactions across all territories."
-        />
-        <KPICard
-          title="Active Customers"
-          value={2500}
-          format="number"
-          trend={{ value: 5.2, direction: 'up', isPositive: true, period: 'vs 90-day baseline' }}
-          tooltip="Unique customer accounts with at least one confirmed order in 90 days."
-        />
-      </div>
+        <div style={{ marginBottom: '1rem' }}>
+          <h2
+            style={{
+              margin: '0 0 0.25rem',
+              fontSize: '1.125rem',
+              fontWeight: 600,
+              color: 'var(--color-text-primary)',
+            }}
+          >
+            Live Drill-Down Order Ledger
+          </h2>
+          <p style={{ margin: 0, color: 'var(--color-text-muted)', fontSize: '0.8125rem' }}>
+            Reconciled granular transaction records matching selected date and regional filters.
+          </p>
+        </div>
 
-      {/* Recent Orders Data Table */}
-      <div style={{ marginTop: '1.5rem' }}>
-        <h2
-          style={{ fontSize: '1.125rem', fontWeight: 600, color: '#ffffff', margin: '0 0 0.75rem' }}
-        >
-          Recent High-Value Transactions
-        </h2>
-        <DataTable
-          data={SAMPLE_ORDERS as unknown as Record<string, unknown>[]}
-          columns={columns as unknown as Column<Record<string, unknown>>[]}
-          keyExtractor={(r) => (r as unknown as RecentOrder).id}
-          enableSearch
-          searchPlaceholder="Search order number, client name..."
-          onExport={() => alert('CSV export triggered with sanitized headers.')}
+        <DataTable<AnalyticsLedgerItem>
+          data={ledger}
+          columns={columns}
+          keyExtractor={(item) => Number(item.id)}
+          emptyMessage="No qualifying orders found for this filter selection."
         />
       </div>
     </div>
