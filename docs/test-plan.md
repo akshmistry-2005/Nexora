@@ -112,5 +112,5 @@ Understand → Implement → Test → Identify Failures → Fix → Retest
 | 02 | PASS | `docs/test-reports/module-02.md` | `module-02-complete` tag (`bdc7c4f`) |
 | 03 | PASS | `docs/test-reports/module-03.md` | `module-03-complete` tag (`2e77842`) |
 | 04 | PASS | `docs/test-reports/module-04.md` | `module-04-complete` tag (`5e9882c`) |
-| 05 | PASS | `docs/test-reports/module-05.md` | `module-05-complete` tag |
+| 05 | PASS | `docs/test-reports/module-05.md` | `module-05-complete` tag (`67e6e50`) |
 | 06–16 | Not Started | `docs/test-reports/module-06.md` – `module-16.md` | — |
