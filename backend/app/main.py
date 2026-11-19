@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routers.auth import router as auth_router
 from app.api.routers.customers import router as customers_router
+from app.api.routers.data_quality import router as data_quality_router
 from app.api.routers.data_sources import router as data_sources_router
 from app.api.routers.health import router as health_router
 from app.api.routers.orders import router as orders_router
@@ -48,6 +49,7 @@ def create_app() -> FastAPI:
     app.include_router(customers_router, prefix=api_v1_prefix)
     app.include_router(orders_router, prefix=api_v1_prefix)
     app.include_router(data_sources_router, prefix=api_v1_prefix)
+    app.include_router(data_quality_router, prefix=api_v1_prefix)
 
     return app
 
