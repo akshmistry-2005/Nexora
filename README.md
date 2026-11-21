@@ -7,16 +7,19 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7.2-3178C6.svg)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-6.0.7-646CFF.svg)](https://vitejs.dev/)
 [![Scikit-Learn](https://img.shields.io/badge/scikit--learn-1.9.1-F7931E.svg)](https://scikit-learn.org/)
-[![Code Quality](https://img.shields.io/badge/Code_Quality-0_ruff_%7C_0_mypy_%7C_0_eslint-brightgreen.svg)]()
-[![Automated Tests](https://img.shields.io/badge/Tests-160_Pytest_%7C_35_Vitest_PASS-success.svg)]()
+[![Tests](https://img.shields.io/badge/Tests-173_Pytest_%7C_35_Vitest_PASS-success.svg)]()
 
-Nexora is a local-first, portfolio-grade Enterprise Data Intelligence & Business Analytics Platform built for a fictional enterprise (*Nexora Technologies*). It demonstrates end-to-end software architecture, relational database engineering, CSV ingestion & 5-dimension quality scoring, real database-backed business intelligence, inferential statistics, evaluated machine learning models, unsupervised anomaly detection, and backend-enforced role-based access control (RBAC).
+Nexora is a local-first, enterprise-grade Data Intelligence and Business Analytics Platform designed for modern corporate decision-making. It bridges the gap between transactional relational databases, advanced statistical inference, machine learning, and executive BI dashboards.
 
-> **Demonstration Environment Notice:** All baseline datasets in Nexora are synthetically generated for enterprise demonstration and evaluation purposes.
+Built with a normalized 28-table PostgreSQL database, a high-performance Python FastAPI backend, and a reactive React 19 / TypeScript frontend, Nexora provides complete operational visibility across revenue, sales channels, customer churn, supply chain logistics, and marketing attribution.
 
 ---
 
-## Architecture Overview
+## 1. What is the Project About?
+
+Nexora acts as the centralized analytical nervous system for an enterprise (*Nexora Technologies Inc.*):
+
+### Architecture Overview
 
 ```
                                       [ Browser Client (Port 5173) ]
@@ -51,159 +54,160 @@ Nexora is a local-first, portfolio-grade Enterprise Data Intelligence & Business
                                     - 2,500 Customers, 15,000 Orders Baseline
 ```
 
-### Technology Stack Mapping
+### Core Architecture Highlights:
+- **Relational Data Foundation:** PostgreSQL 16 engine managing 28 relational tables with foreign key constraints, indexes, and automated schema migrations via Alembic.
+- **Append-Only Security Audit:** A database procedural trigger (`trg_audit_logs_immutable`) intercepts any `UPDATE` or `DELETE` on compliance logs at the database engine level, mathematically preventing tampering.
+- **Parametric & Non-Parametric Statistics:** Welch’s t-tests (handling unequal variances), ANOVA tests, and dual Pearson/Spearman correlation matrices.
+- **Machine Learning Pipelines:** Scikit-Learn pipelines evaluated against explicit statistical baselines for customer churn classification, time-series revenue forecasting, and product demand regression.
+- **Unsupervised Anomaly Detection:** Multivariate Isolation Forest model benchmarked against univariate Interquartile Range (IQR) fences, adhering to strict corporate accusation-prohibition compliance.
+- **5-Dimension Data Quality Engine:** Automated profiling across Completeness, Uniqueness, Validity, Timeliness, and Consistency.
+- **Role-Based Access Control (RBAC):** Backend-enforced JWT authentication separating public demonstration personas from privileged platform owners.
 
-| Layer | Technology | Primary Directory |
-| :--- | :--- | :--- |
-| **Frontend SPA** | React 19, TypeScript 5.7, Vite 6, Tailwind CSS | `frontend/` |
-| **Backend API** | Python 3.13, FastAPI, SQLAlchemy 2.0, Pydantic v2 | `backend/` |
-| **Database Engine** | PostgreSQL 16 Alpine via Docker Compose | `docker-compose.yml` |
-| **Data Migration** | Alembic (with database-level immutable triggers) | `backend/migrations/` |
-| **Machine Learning** | Scikit-Learn 1.9, NumPy 2.5, SciPy 1.18, statsmodels | `backend/app/analytics/`, `artifacts/` |
-| **Data Pipelines** | Synthetic enterprise generators, batch seeders, trainer | `scripts/`, `data/` |
-| **Documentation** | Requirements, metric definitions, test reports, model docs | `docs/` |
-
----
-
-## Implemented Platform Modules
+### Implemented Platform Modules
 
 | Module ID | Module Title | Primary Capabilities & Scope |
 | :---: | :--- | :--- |
-| **M01** | Repository & Environment | Multi-runtime tooling, git checkpointing, clean directory layout |
-| **M02** | Health & Containerization | Docker Compose PostgreSQL 16, multi-stage containers, health endpoint |
-| **M03** | Database Engineering | 28 tables, Alembic migrations, foreign keys, btree indexes |
-| **M04** | Backend Foundation | FastAPI application structure, CORS, global error handling, logging |
+| **M01–M04** | Foundation & Architecture | Multi-stage Docker PostgreSQL 16, Alembic migrations, 28 tables, FastAPI REST API |
 | **M05** | Authentication & RBAC | JWT access tokens, password hashing, role permissions, owner setup |
 | **M06** | Frontend Foundation | Design system tokens, AppShell, sidebar, topbar, KPI cards, DataTable |
-| **M07** | Data Ingestion | CSV upload preview, sanitization, schema mapping, batch staging |
-| **M08** | Data Quality Engine | 5-dimension scoring (Completeness, Uniqueness, Validity, Timeliness, Consistency) |
-| **M09** | Core BI Dashboards | Executive overview, sales intelligence, order ledger, drill-down analytics |
-| **M10** | Reports & Exports | Saved analytical views, catalog, CSV/Excel exports with permission checks |
+| **M07–M08** | Data Ingestion & Quality | CSV upload preview, schema mapping, 5-dimension quality scoring |
+| **M09–M10** | BI Dashboards & Reports | Executive overview, sales drilldown, saved analytical views, CSV/Excel export |
 | **M11** | Statistical Analysis | Descriptive stats, Pearson/Spearman correlation, Welch t-test, ANOVA, Chi-Square |
-| **M12** | Predictive Analytics | Customer Churn (RF), Sales Forecast (RF), SKU Demand (RF), model governance |
-| **M13** | Anomaly Detection | Isolation Forest benchmark (BL-16), IQR rules, accusation prohibition compliance |
-| **M14** | Pipeline & Audit Admin | Append-only audit trigger (`trg_audit_logs_immutable`), pipeline health, demo reset |
-| **M15** | Integration & Security | End-to-end integration, SQLi/XSS defense, token expiry, accessibility review |
-| **M16** | Documentation & Handover | Complete technical documentation, local reproduction guide, operations manual |
+| **M12–M13** | Predictive ML & Anomalies | Customer Churn (RF), Sales Forecast (RF), SKU Demand (RF), Isolation Forest |
+| **M14–M16** | Administration & Handover | Append-only audit trigger, pipeline health telemetry, test gates, local handover |
 
 ---
 
-## Prerequisites
+## 2. Current Platform Functionality & Data Foundation
 
-- **Python:** 3.11+ (verified on Python 3.13.1)
-- **Node.js:** 20.0+ (verified on Node.js v22.19.0)
-- **npm:** 10.0+ (verified on npm 10.9.3)
-- **Docker Desktop & Docker Compose v2:** (verified with PostgreSQL 16 Alpine)
-- **Git:** 2.40+
+Nexora comes pre-populated with a deterministic synthetic enterprise dataset covering 24–30 months of operational history:
+
+### Pre-Loaded Enterprise Dataset
+- **2,500 Enterprise Customers:** Categorized across Enterprise, Mid-Market, and SMB tiers.
+- **15,000 Historical Transactions:** Representing ~$12.5M in gross revenue with realistic seasonal trends and channel variations (Direct B2B, Partner, Online).
+- **38,000+ Order Line Items:** Spanning 100 hardware and software catalog SKUs across 5 categories.
+- **10 Warehouses & 15 Suppliers:** Tracking real-time inventory valuations, stockout thresholds, and contractual lead times.
+- **3,600 Daily Marketing Campaign Events:** Tracking impressions, clicks, conversions, spend, and ROAS.
+
+### Demonstration Personas & Credentials
+
+The platform includes 5 pre-configured demonstration personas (with one-click login in the top bar) and one privileged Platform Owner account:
+
+| Persona / Role | Demo Email | Access Scope |
+| :--- | :--- | :--- |
+| **Platform Owner** | `owner@nexora.local` *(Password: `NexoraOwnerPass2026!`)* | Full administrative control, user RBAC, telemetry, demo reset |
+| **Executive Sponsor** | `demo_exec@nexora.local` | Executive overview, gross margins, net revenue, board summaries |
+| **Commercial Manager** | `demo_comm@nexora.local` | Customer intelligence, sales channels, order ledger, churn simulators |
+| **Operations Lead** | `demo_ops@nexora.local` | Inventory health, warehouse valuations, supplier reliability |
+| **Data Analyst** | `demo_analyst@nexora.local` | Full BI analytics, inferential statistics, ML models, report export |
+| **General Viewer** | `demo_viewer@nexora.local` | Read-only dashboards; exports and data mutations locked |
 
 ---
 
-## Quick Start (Clean Environment Setup)
+## 3. Quick Start & Installation Guide
 
-### 1. Environment Configuration
-```powershell
+Follow these exact steps to clone, initialize, and run Nexora on your machine:
+
+### Prerequisites
+- **Git** (2.40+)
+- **Docker Desktop** (running Docker Compose v2)
+- **Python** (3.11+ / tested on 3.13)
+- **Node.js** (20+ / npm 10+)
+- **PostgreSQL** 16 (managed automatically via Docker)
+
+---
+
+### Step 1: Clone the Repository & Configure Environment
+```bash
+git clone https://github.com/akshmistry-2005/Nexora.git
+cd Nexora
+
+# Windows PowerShell:
 Copy-Item .env.example .env
+# macOS / Linux:
+# cp .env.example .env
 ```
-Keep real secrets out of source control (`.env` is git-ignored).
 
-### 2. Start PostgreSQL Engine
-```powershell
+---
+
+### Step 2: Start PostgreSQL (Docker)
+```bash
 docker compose up -d postgres
-docker compose ps
 ```
+*PostgreSQL 16 Alpine is now running in an isolated container on port `5432`.*
 
-### 3. Initialize Backend & Database
-```powershell
+---
+
+### Step 3: Setup Backend & Initialize Database
+```bash
 cd backend
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -e ".[dev]"
-alembic upgrade head
-cd ..
-```
 
-### 4. Seed Synthetic Dataset & Train ML Models
-```powershell
+# Activate virtual environment:
+# Windows PowerShell:
+.\.venv\Scripts\Activate.ps1
+# macOS / Linux:
+# source .venv/bin/activate
+
+# Install dependencies in editable mode
+pip install -e ".[dev]"
+
+# Apply database migrations
+alembic upgrade head
+
+# Seed synthetic enterprise dataset & train ML models
+cd ..
 python scripts/seed_database.py
 python scripts/train_models.py
 ```
 
-### 5. Start Backend API Server
-```powershell
+---
+
+### Step 4: Run the Application
+
+**Terminal 1 — Backend API Server:**
+```bash
 cd backend
 uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 ```
-- Health Verification: `http://127.0.0.1:8000/api/v1/health`
+- API Health Check: `http://127.0.0.1:8000/api/v1/health`
 - Interactive OpenAPI Docs: `http://127.0.0.1:8000/docs`
 
-### 6. Install & Start Frontend Client
-In a second terminal:
-```powershell
+**Terminal 2 — Frontend Client:**
+```bash
 cd frontend
 npm install
 npm run dev
 ```
-- Local Application URL: `http://localhost:5173`
-
----
-
-## Demonstration Personas & Credentials
-
-The platform includes 5 pre-configured demonstration personas (with one-click login in the top bar) and one privileged Platform Owner account:
-
-| Persona / Role | Email | Password | Access Scope |
-| :--- | :--- | :--- | :--- |
-| **Platform Owner** | `owner@nexora.local` | `NexoraOwnerPass2026!` | Full administrative access, audit logs, user directory, system reset |
-| **Executive Sponsor** | `demo_exec@nexora.local` | *(One-Click Demo Login)* | Executive overview, sales KPIs, revenue summaries, board reports |
-| **Operations Lead** | `demo_ops@nexora.local` | *(One-Click Demo Login)* | Inventory health, supplier scorecard, operations telemetry, quality triage |
-| **Commercial Manager** | `demo_comm@nexora.local` | *(One-Click Demo Login)* | Customer intelligence, marketing campaigns, churn simulators, sales drilldown |
-| **Data Analyst** | `demo_analyst@nexora.local` | *(One-Click Demo Login)* | Full BI analytics, inferential statistics, ML models, report export |
-| **General Viewer** | `demo_viewer@nexora.local` | *(One-Click Demo Login)* | Read-only high-level dashboards; export and mutations disabled |
+- Web Application: **`http://localhost:5173`**
 
 ---
 
 ## Quality Gates & Verification Commands
 
-The project strictly complies with the **Nexora Mandatory Module-Wise Testing Gate System**. Zero lint errors, zero typecheck errors, and 100% test pass rate are enforced across both stacks:
+To verify that all 208 automated unit, database, and integration tests pass cleanly:
 
-### Backend Checks (160 Tests)
-```powershell
-# Run complete pytest suite with real PostgreSQL database
-backend\.venv\Scripts\python.exe -m pytest backend\tests
+```bash
+# Run 173 backend pytest tests against real PostgreSQL
+backend/.venv/Scripts/python.exe -m pytest backend/tests
 
-# Run Ruff linter (0 errors enforced)
-backend\.venv\Scripts\ruff.exe check backend\app backend\tests
-
-# Run Ruff code format check (0 discrepancies enforced)
-backend\.venv\Scripts\ruff.exe format --check backend\app backend\tests
-
-# Run Mypy static type checker (0 errors enforced across 80 source files)
-powershell -Command "cd backend; .\.venv\Scripts\python.exe -m mypy app"
-```
-
-### Frontend Checks (35 Tests)
-```powershell
-# Run Vitest test suites across all frontend modules
+# Run 35 frontend Vitest tests
 npm --prefix frontend test -- --run
 
-# Run ESLint (0 errors, 0 warnings enforced)
+# Run static quality checks (0 errors enforced)
+backend/.venv/Scripts/ruff.exe check backend/app backend/tests
+powershell -Command "cd backend; .\.venv\Scripts\python.exe -m mypy app"
 npm --prefix frontend run lint
-
-# Run TypeScript type check (0 errors enforced)
 npm --prefix frontend run typecheck
-
-# Verify production bundle compilation
-npm --prefix frontend run build
 ```
 
 ---
 
-## Project Documentation Index
+## Technical Documentation Index
 
 - [Local Handover & Operations Guide](docs/local-handover.md)
 - [Machine Learning Model Documentation](docs/model-documentation.md)
-- [Canonical Data Dictionary](docs/data-dictionary.md)
+- [Canonical Data Dictionary (28 Tables)](docs/data-dictionary.md)
 - [Metric Definitions & Business Formulas](docs/metric-definitions.md)
-- [Product Requirements & Backlog](docs/product-requirements.md)
-- [Master Test Plan & Gate Log](docs/test-plan.md)
-- [Module Completion Reports (Modules 01–16)](docs/test-reports/)
+- [Product Requirements & Architecture Spec](docs/product-requirements.md)
+- [Master Test Plan & Verification Log](docs/test-plan.md)
